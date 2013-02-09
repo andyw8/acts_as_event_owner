@@ -6,6 +6,8 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
 
+$:.unshift File.dirname(__FILE__)
+
 begin
   require 'jeweler'
   require 'lib/acts_as_event_owner'
