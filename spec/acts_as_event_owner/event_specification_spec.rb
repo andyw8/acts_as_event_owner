@@ -133,7 +133,7 @@ describe ActsAsEventOwner::EventSpecification do
       new_event_specification(:repeat => :weekly, :frequency => 2).should be_valid
       new_event_specification(:repeat => :weekly, :on => [:mo, :we, :fr]).should be_valid
       new_event_specification(:repeat => :weekly, :frequency => 2, :on => [:mo, :we, :fr]).should be_valid
-      new_event_specification(:repeat => :weekly, :frequency => 2, :on => [:mo, :we, :fr], :until => Time.parse("12/31/2010")).should be_valid
+      new_event_specification(:repeat => :weekly, :frequency => 2, :on => [:mo, :we, :fr], :until => Time.parse("2010-12-31")).should be_valid
     end
 
     it "does not support invalid recurrence specifications" do
@@ -161,7 +161,7 @@ describe ActsAsEventOwner::EventSpecification do
       # every other monday, wednesday, and friday
       new_event_specification(:repeat => :weekly, :frequency => 2, :on => [:mo, :we, :fr]).to_rrule.should == "FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,WE,FR"
       # every other monday, wednesday, and friday, until 12/31/2010
-      new_event_specification(:repeat => :weekly, :frequency => 2, :on => [:mo, :we, :fr], :until => Time.parse("12/31/2010")).to_rrule.should == "FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,WE,FR;UNTIL=20101231T000000"
+      new_event_specification(:repeat => :weekly, :frequency => 2, :on => [:mo, :we, :fr], :until => Time.parse("2010-12-31")).to_rrule.should == "FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,WE,FR;UNTIL=20101231T000000"
     end
   end
 
@@ -171,7 +171,7 @@ describe ActsAsEventOwner::EventSpecification do
       new_event_specification(:repeat => :monthly, :frequency => 2).should be_valid
       new_event_specification(:repeat => :monthly, :frequency => 2, :on => [1, 15, 20]).should be_valid
       new_event_specification(:repeat => :monthly, :frequency => 2, :on_the => :third, :target => :wkday).should be_valid
-      new_event_specification(:repeat => :monthly, :frequency => 2, :on_the => :third, :target => [:mo, :we], :until => Time.parse("12/31/2010")).should be_valid
+      new_event_specification(:repeat => :monthly, :frequency => 2, :on_the => :third, :target => [:mo, :we], :until => Time.parse("2010-12-31")).should be_valid
     end
 
     it "does not support invalid recurrence specification" do
@@ -210,7 +210,7 @@ describe ActsAsEventOwner::EventSpecification do
       # every other month, on the third weekday of the month
       new_event_specification(:repeat => :monthly, :frequency => 2, :on_the => :third, :target => :wkday).to_rrule.should == "FREQ=MONTHLY;INTERVAL=2;BYSETPOS=3;BYDAY=MO,TU,WE,TH,FR"
       # every other month, on the third monday and third wednesday, until 12/31/2010
-      new_event_specification(:repeat => :monthly, :frequency => 2, :on_the => :third, :target => [:mo, :we], :until => Time.parse("12/31/2010")).to_rrule.should == "FREQ=MONTHLY;INTERVAL=2;BYSETPOS=3;BYDAY=MO,WE;UNTIL=20101231T000000"
+      new_event_specification(:repeat => :monthly, :frequency => 2, :on_the => :third, :target => [:mo, :we], :until => Time.parse("2010-12-31")).to_rrule.should == "FREQ=MONTHLY;INTERVAL=2;BYSETPOS=3;BYDAY=MO,WE;UNTIL=20101231T000000"
     end
   end
 
@@ -221,7 +221,7 @@ describe ActsAsEventOwner::EventSpecification do
       new_event_specification(:repeat => :yearly, :on => [1,7]).should be_valid
       new_event_specification(:repeat => :yearly, :frequency => 2, :on => [1,7]).should be_valid
       new_event_specification(:repeat => :yearly, :on => [1,7], :on_the => :first, :target => :wkend).should be_valid
-      new_event_specification(:repeat => :yearly, :frequency => 2, :on => [1,7], :on_the => :first, :target => :wkday, :until => Time.parse("12/31/2010")).should be_valid
+      new_event_specification(:repeat => :yearly, :frequency => 2, :on => [1,7], :on_the => :first, :target => :wkday, :until => Time.parse("2010-12-31")).should be_valid
     end
 
     it "does not support invalid recurrence rules" do
@@ -254,7 +254,7 @@ describe ActsAsEventOwner::EventSpecification do
       # every year, on the first weekend day in january and july
       new_event_specification(:repeat => :yearly, :on => [1,7], :on_the => :first, :target => :wkend).to_rrule.should == "FREQ=YEARLY;INTERVAL=1;BYMONTH=1,7;BYSETPOS=1;BYDAY=SU,SA"
       # every other year, on the first weekday in january and july, until 12/31/2010
-      new_event_specification(:repeat => :yearly, :frequency => 2, :on => [1,7], :on_the => :first, :target => :wkday, :until => Time.parse("12/31/2010")).to_rrule.should == "FREQ=YEARLY;INTERVAL=2;BYMONTH=1,7;BYSETPOS=1;BYDAY=MO,TU,WE,TH,FR;UNTIL=20101231T000000"
+      new_event_specification(:repeat => :yearly, :frequency => 2, :on => [1,7], :on_the => :first, :target => :wkday, :until => Time.parse("2010-12-31")).to_rrule.should == "FREQ=YEARLY;INTERVAL=2;BYMONTH=1,7;BYSETPOS=1;BYDAY=MO,TU,WE,TH,FR;UNTIL=20101231T000000"
     end
   end
 
@@ -412,7 +412,7 @@ describe ActsAsEventOwner::EventSpecification do
         before do
           Time.zone = 'UTC'
         end
-        
+
         it "generates the occurrences properly" do
           @now = Time.zone.local(2011, 1, 16, 23, 00)  # sunday
           spec = create_event_specification :description => "mwf event", :start_at => @now, :repeat => :weekly, :on => [:mo, :we, :fr]
@@ -421,12 +421,12 @@ describe ActsAsEventOwner::EventSpecification do
           occurrence.start_at.in_time_zone.hour.should == 23
         end
       end
-      
+
       context "with local times" do
         before(:each) do
           Time.zone = 'Pacific Time (US & Canada)'
         end
-        
+
         it "generates the occurrences properly" do
           @now = Time.zone.local(2011, 1, 16, 23, 00)  # sunday
           spec = create_event_specification :description => "mwf event", :start_at => @now, :repeat => :weekly, :on => [:mo, :we, :fr]
@@ -437,7 +437,7 @@ describe ActsAsEventOwner::EventSpecification do
           occurrence.start_at.in_time_zone.hour.should == 23
         end
       end
-      
+
       context "with conflicting time zones" do
         it "generates events with erroneous start_at values" do
           Time.zone = 'Pacific Time (US & Canada)'
