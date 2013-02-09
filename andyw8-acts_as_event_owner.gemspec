@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     "README.textile",
     "Rakefile",
     "acts_as_event_owner.gemspec",
+    "andyw8-acts_as_event_owner.gemspec",
     "generators/acts_as_event_owner_migration/USAGE",
     "generators/acts_as_event_owner_migration/acts_as_event_owner_migration_generator.rb",
     "generators/acts_as_event_owner_migration/templates/acts_as_event_owner_migration.rb",
