@@ -1,14 +1,10 @@
 require 'rake'
 require 'rdoc/task'
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
 
-desc "Run all specs"
-Spec::Rake::SpecTask.new('specs') do |t|
-  t.libs << 'lib'
-  t.spec_files = FileList['spec/**/*.rb']
-end
+RSpec::Core::RakeTask.new(:spec)
 
-task :default => [:specs]
+task :default => :spec
 
 begin
   require 'jeweler'
