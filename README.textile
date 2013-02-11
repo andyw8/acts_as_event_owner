@@ -7,6 +7,7 @@ Reasons for this fork:
 * Fix compatibility with Rails >= 3.09 (https://github.com/dburkes/acts_as_event_owner/issues/14)
 * Use Bundler instead of Jeweler for gem releases (Jeweler appears to be abandoned)
 * Add CI via Travis
+* The rake task for `acts_as_event_owner:generate_events` appeared incomplete/broken. I've fixed it for the simplified case I need where no arguments are required, and it will default to events from now to 30 days in the future.
 
 One test was failing for me, which I don't have time to look into at the moment (event_specificiation_spec.rb) so I have marked it as pending.
 
