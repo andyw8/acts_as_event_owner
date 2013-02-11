@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/andyw8/andyw8-acts_as_event_owner.png)](http://travis-ci.org/andyw8/andyw8-acts_as_event_owner)
+
 h1. Fork
 
 Reasons for this fork:
