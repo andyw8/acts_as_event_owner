@@ -1,3 +1,3 @@
 module ActsAsEventOwner
-  VERSION = "1.1.12" unless defined? ActsAsEventOwner::VERSION
+  VERSION = "1.1.13" unless defined? ActsAsEventOwner::VERSION
 end

@@ -100,7 +100,7 @@ module ActsAsEventOwner
       opts = options.clone
       opts[:from] = Time.now
 
-      opts[:to] ||= (opts[:from] + 30.days) if opts[:from]
+      opts[:to] ||= (opts[:from] + 90.days) if opts[:from]
       opts[:from] -= 1.second
       opts[:to] -= 1.second
       opts[:from] = opts[:to] = nil if opts[:count]
