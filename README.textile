@@ -1,4 +1,4 @@
-"!https://travis-ci.org/andyw8/andyw8-acts_as_event_owner.png!":https://travis-ci.org/andyw8/andyw8-acts_as_event_owner
+"!https://travis-ci.org/andyw8/acts_as_event_owner.png!":https://travis-ci.org/andyw8/acts_as_event_owner
 
 h1. Fork
 
