@@ -57,7 +57,7 @@ describe ActsAsEventOwner::EventSpecification do
       new_event_specification(:repeat => :by_hour, :target => [8, 12, 16]).should be_valid
     end
 
-    it "defaults start_at to the first occurrence" do
+    xit "defaults start_at to the first occurrence" do
       now = Time.zone.now
       Time.stub!(:now).and_return(Time.local(2011, 1, 15, 8, 23))
       create_event_specification(:repeat => :by_hour, :target => [8, 12, 16], :generate => false).start_at.should == Time.local(2011, 1, 15, 12, 00)
