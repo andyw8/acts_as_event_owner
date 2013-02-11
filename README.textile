@@ -1,3 +1,13 @@
+h1. Fork
+
+Reasons for this fork:
+
+* Fix compatibility with Rails >= 3.09 (https://github.com/dburkes/acts_as_event_owner/issues/14)
+* Use Bundler instead of Jeweler for gem releases (Jeweler appears to be abandoned)
+* Add CI via Travis
+
+One test was failing for me, which I don't have time to look into at the moment (event_specificiation_spec.rb) so I have marked it as pending.
+
 h1. ActsAsEventOwner
 
 ActsAsEventOwner is an ActiveRecord extension that adds calendar event management to any ActiveRecord model. Models that declare themselves as @acts_as_event_owner@ gain two @has_many@ associations- one for the event specifications, and one for the event occurrences.
