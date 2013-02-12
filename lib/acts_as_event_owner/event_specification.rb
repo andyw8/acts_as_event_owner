@@ -98,7 +98,7 @@ module ActsAsEventOwner
       raise ActsAsEventOwner::Exception.new("Invalid Event Specification") if !valid?
 
       opts = options.clone
-      opts[:from] ||= self.start_at
+      opts[:from] ||= Time.now
       opts[:to] ||= (opts[:from] + 30.days) if opts[:from]
       opts[:from] -= 1.second
       opts[:to] -= 1.second
@@ -128,15 +128,15 @@ module ActsAsEventOwner
           additional[column] = self.attributes[column] if @@OCCURRENCE_COLUMNS.include?(column)
           additional
         end
-        
+
         # puts "*********** #{occurrence.start_time} : #{occurrence.start_time.zone}"
         # puts "*********** #{Time.zone.at(occurrence.start_time.to_i)}"
-        
+
         hash = {
           :owner_id => self.owner_id, :owner_type => self.owner_type, :event_specification_id => self.id,
           :description => occurrence.description, :start_at => occurrence.start_time.utc,
           :end_at => occurrence.finish_time.utc}.stringify_keys.merge(additional_columns).merge(attribute_overrides.stringify_keys)
-          
+
         EventOccurrence.find_or_create_by_owner_id_and_owner_type_and_event_specification_id_and_start_at_and_end_at(hash)
       end
     end
@@ -146,7 +146,7 @@ module ActsAsEventOwner
         spec.generate_events(options)
       }
     end
-    
+
     def repeat
       self.attributes["repeat"].try(:to_sym)
     end
